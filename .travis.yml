@@ -3,12 +3,8 @@ sudo: false
 node_js:
     - "9"
     - "8"
-    - "7"
     - "6"
-    - "5"
     - "4"
-    - "0.12"
-    - "0.10"
 cache:
   directories:
     - node_modules
