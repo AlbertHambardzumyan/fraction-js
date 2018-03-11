@@ -14,6 +14,10 @@ describe('Fraction', function () {
       expect((new Fraction(1, 3)).toString()).to.be.equal('1/3')
     })
 
+    it('should create Fraction instance given two numbers (negative).', function () {
+      expect((new Fraction(-1, 3)).toString()).to.be.equal('-1/3')
+    })
+
     it('should create Fraction instance given two numbers & normalize.', function () {
       expect((new Fraction(2, 6)).toString()).to.be.equal('1/3')
     })
@@ -34,11 +38,9 @@ describe('Fraction', function () {
       expect(fraction.gcd().toString()).to.be.equal('1')
     })
 
-    it('should add Fraction instance values & normalize.', function () {
-      var fraction1 = new Fraction(1, 4)
-      var fraction2 = new Fraction(1, 4)
-
-      expect(fraction1.add(fraction2).toString()).to.be.equal('1/2')
+    it('should compute gcd of the Fraction instance (negative).', function () {
+      var fraction = new Fraction(-2, 7)
+      expect(fraction.gcd().toString()).to.be.equal('1')
     })
   })
 
@@ -48,6 +50,34 @@ describe('Fraction', function () {
       var fraction2 = new Fraction(2, 5)
 
       expect(fraction1.add(fraction2).toString()).to.be.equal('3/5')
+    })
+
+    it('should add Fraction instance values (first negative).', function () {
+      var fraction1 = new Fraction(-2, 5)
+      var fraction2 = new Fraction(1, 5)
+
+      expect(fraction1.add(fraction2).toString()).to.be.equal('-1/5')
+    })
+
+    it('should add Fraction instance values (second negative).', function () {
+      var fraction1 = new Fraction(2, 5)
+      var fraction2 = new Fraction(-1, 5)
+
+      expect(fraction1.add(fraction2).toString()).to.be.equal('1/5')
+    })
+
+    it('should add Fraction instance values (first negative & smaller).', function () {
+      var fraction1 = new Fraction(-1, 5)
+      var fraction2 = new Fraction(2, 5)
+
+      expect(fraction1.add(fraction2).toString()).to.be.equal('1/5')
+    })
+
+    it('should add Fraction instance values (second negative & bigger).', function () {
+      var fraction1 = new Fraction(1, 5)
+      var fraction2 = new Fraction(-2, 5)
+
+      expect(fraction1.add(fraction2).toString()).to.be.equal('-1/5')
     })
 
     it('should add Fraction instance values & normalize.', function () {
@@ -73,6 +103,34 @@ describe('Fraction', function () {
       expect(fraction1.subtract(fraction2).toString()).to.be.equal('1/5')
     })
 
+    it('should add Fraction instance values (first negative).', function () {
+      var fraction1 = new Fraction(-3, 5)
+      var fraction2 = new Fraction(2, 5)
+
+      expect(fraction1.subtract(fraction2).toString()).to.be.equal('-1/1')
+    })
+
+    it('should add Fraction instance values (second negative).', function () {
+      var fraction1 = new Fraction(3, 5)
+      var fraction2 = new Fraction(-2, 5)
+
+      expect(fraction1.subtract(fraction2).toString()).to.be.equal('1/1')
+    })
+
+    it('should add Fraction instance values (first negative & smaller).', function () {
+      var fraction1 = new Fraction(-2, 5)
+      var fraction2 = new Fraction(3, 5)
+
+      expect(fraction1.subtract(fraction2).toString()).to.be.equal('-1/1')
+    })
+
+    it('should add Fraction instance values (second negative & bigger).', function () {
+      var fraction1 = new Fraction(2, 5)
+      var fraction2 = new Fraction(-3, 5)
+
+      expect(fraction1.subtract(fraction2).toString()).to.be.equal('1/1')
+    })
+
     it('should subtract Fraction instance values & normalize.', function () {
       var fraction1 = new Fraction(3, 4)
       var fraction2 = new Fraction(1, 4)
@@ -92,6 +150,20 @@ describe('Fraction', function () {
     it('should multiply with given Fraction instance values.', function () {
       var fraction1 = new Fraction(3, 4)
       var fraction2 = new Fraction(1, 7)
+
+      expect(fraction1.multiply(fraction2).toString()).to.be.equal('3/28')
+    })
+
+    it('should multiply with given Fraction instance values (negative).', function () {
+      var fraction1 = new Fraction(-3, 4)
+      var fraction2 = new Fraction(1, 7)
+
+      expect(fraction1.multiply(fraction2).toString()).to.be.equal('-3/28')
+    })
+
+    it('should multiply with given Fraction instance values (both negative).', function () {
+      var fraction1 = new Fraction(-3, 4)
+      var fraction2 = new Fraction(-1, 7)
 
       expect(fraction1.multiply(fraction2).toString()).to.be.equal('3/28')
     })
@@ -118,12 +190,33 @@ describe('Fraction', function () {
       expect(fraction.inverse().toString()).to.be.equal('4/3')
       expect(fraction.toString()).to.be.equal('3/4')
     })
+
+    it('should inverse & return new Fraction instance (negative).', function () {
+      var fraction = new Fraction(-3, 4)
+
+      expect(fraction.inverse().toString()).to.be.equal('-4/3')
+      expect(fraction.toString()).to.be.equal('-3/4')
+    })
   })
 
   describe('divide()', function () {
     it('should divide with given Fraction instance values.', function () {
       var fraction1 = new Fraction(3, 4)
       var fraction2 = new Fraction(2, 7)
+
+      expect(fraction1.divide(fraction2).toString()).to.be.equal('21/8')
+    })
+
+    it('should divide with given Fraction instance values (negative).', function () {
+      var fraction1 = new Fraction(-3, 4)
+      var fraction2 = new Fraction(2, 7)
+
+      expect(fraction1.divide(fraction2).toString()).to.be.equal('-21/8')
+    })
+
+    it('should divide with given Fraction instance values (both negative).', function () {
+      var fraction1 = new Fraction(-3, 4)
+      var fraction2 = new Fraction(-2, 7)
 
       expect(fraction1.divide(fraction2).toString()).to.be.equal('21/8')
     })
