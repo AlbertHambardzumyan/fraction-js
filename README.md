@@ -1,6 +1,6 @@
 # fraction-js
 [![Build Status](https://travis-ci.org/AlbertHambardzumyan/fraction-js.svg?branch=master)](https://travis-ci.org/AlbertHambardzumyan/fraction-js)
-[![npm](https://img.shields.io/npm/v/@mathematics/fraction.svg)](https://www.npmjs.com/package/@mathematics/fraction-js) 
+[![npm](https://img.shields.io/npm/v/@mathematics/fraction.svg)](https://www.npmjs.com/package/@mathematics/fraction) 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/AlbertHambardzumyan/fraction-js/master/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/AlbertHambardzumyan/fraction-js.svg)](https://github.com/AlbertHambardzumyan/fraction-js/issues)
 
