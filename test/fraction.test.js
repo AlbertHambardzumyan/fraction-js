@@ -18,6 +18,14 @@ describe('Fraction', function () {
       expect((new Fraction(-1, 3)).toString()).to.be.equal('-1/3')
     })
 
+    it('should create Fraction instance given two numbers (negative denominator).', function () {
+      expect((new Fraction(1, -3)).toString()).to.be.equal('-1/3')
+    })
+
+    it('should create Fraction instance given two numbers (negative nominator & denominator).', function () {
+      expect((new Fraction(-1, -3)).toString()).to.be.equal('1/3')
+    })
+
     it('should create Fraction instance given two numbers & normalize.', function () {
       expect((new Fraction(2, 6)).toString()).to.be.equal('1/3')
     })
