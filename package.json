@@ -1,5 +1,5 @@
 {
-  "name": "@mathematics/fraction-js",
+  "name": "@mathematics/fraction",
   "description": "Fraction library written in JavaScript.",
   "version": "1.0.0-beta",
   "author": "Albert Hambardzumyan <hambardzumyan.albert@gmail.com>",
