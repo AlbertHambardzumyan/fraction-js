@@ -1,7 +1,7 @@
-const chai = require('chai')
-const expect = chai.expect
+var chai = require('chai')
+var expect = chai.expect
 
-const Fraction = require('../lib/fraction')
+var Fraction = require('../lib/fraction')
 
 describe('Fraction', function () {
 
