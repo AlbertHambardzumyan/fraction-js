@@ -13,7 +13,7 @@
 Fraction library written in JavaScript.
 
 # Description
-The Library provides the following API:
+The library provides the following API:
   
   * [add(...)](#add)
   * [subtract(...)](#subtract)
@@ -162,12 +162,12 @@ The Library provides the following API:
 ### Fraction.isFraction
 ```` javascript
    const Fraction = require('@mathematics/fraction')
-   let fraction = new Fraction(7, 9)
+   let that = new Fraction(7, 9)
   
    /**
     * @param {Fraction | Object } that
     * @returns {boolean}
     * @description Checks whether the given instance is a Fraction instance.
     */
-   const isFraction = Fraction.isFraction()
+   const isFraction = Fraction.isFraction(that)
 ````
