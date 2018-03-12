@@ -24,7 +24,6 @@ The Library provides the following API:
   * [copy(...)](#copy)
   * [equals(...)](#equals)
   * [value(...)](#value)
-  
   * [Fraction.isFraction(...)](#value)
     
 # Installation 
