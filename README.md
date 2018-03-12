@@ -15,6 +15,7 @@ Fraction library written in JavaScript.
 # Description
 The library provides the following API:
   
+  * [constructor(...)](#constructor)
   * [add(...)](#add)
   * [subtract(...)](#subtract)
   * [multiply(...)](#multiply)
@@ -32,6 +33,23 @@ The library provides the following API:
 ```
 
 # API ✍
+
+### constructor
+```` javascript
+   const Fraction = require('@mathematics/fraction')
+   
+   // default constructor 
+   let fraction = new Fraction()  // -> 0/1
+   
+   // single arg constructor
+   let fraction = new Fraction(2)  // -> 2/1
+   
+   // two args constructor
+   let fraction = new Fraction(2, 5)
+      
+   // copy constructor
+   let fraction = new Fraction(that)
+````
 
 ### add
 ```` javascript
