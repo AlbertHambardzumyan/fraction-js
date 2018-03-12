@@ -11,3 +11,30 @@
 
 
 Fraction library written in JavaScript.
+
+# Description
+The Library provides the following API:
+ 
+  * [divide(...)](#divide(...))    
+
+# Installation 
+```bash
+ npm install @mathematics/fraction
+```
+
+# API
+
+### divide(...)
+```` javascript
+   const Fraction = require('@mathematics/fraction')
+   let fraction = new Fraction(1, 3)
+   let that = new Fraction(1, 6)
+  
+   /**
+    * @param {Fraction} that
+    * @throws {Error} - if the given argument is not instance of Fraction.
+    * @returns {Fraction}
+    * @description Divide.
+    */
+   fraction.divide(that);
+````
