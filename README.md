@@ -15,7 +15,7 @@ Fraction library written in JavaScript.
 # Description
 The Library provides the following API:
  
-  * [divide(...)](#divide(that))    
+  * [divide(...)](#divide)    
 
 # Installation 
 ```bash
@@ -24,7 +24,7 @@ The Library provides the following API:
 
 # API
 
-### divide(that)
+### divide
 ```` javascript
    const Fraction = require('@mathematics/fraction')
    let fraction = new Fraction(1, 3)
