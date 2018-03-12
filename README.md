@@ -25,7 +25,7 @@ The Library provides the following API:
   * [equals(...)](#equals)
   * [value(...)](#value)
   
-  * [Fraction.isFraction(...)](#equals)
+  * [Fraction.isFraction(...)](#Fraction.isFraction)
     
 # Installation 
 ```bash
