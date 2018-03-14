@@ -30,6 +30,13 @@ describe('Fraction', function () {
       expect((new Fraction(2, 6)).toString()).to.be.equal('1/3')
     })
 
+    it('should not create Fraction instance given two numbers (denominator is zero).', function () {
+      var badConstructor = function () {
+        return new Fraction(4, 0)
+      }
+      expect(badConstructor).to.throw(Error)
+    })
+
     it('should create Fraction instance given single number.', function () {
       expect((new Fraction(2)).toString()).to.be.equal('2/1')
     })
