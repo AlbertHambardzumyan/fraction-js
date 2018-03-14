@@ -47,6 +47,9 @@ The library provides the following API:
  // two args constructor
  let fraction = new Fraction(2, 5)
       
+ // two args constructor
+ let fraction = new Fraction(3, 0) // -> throws error
+ 
  // copy constructor
  let fraction = new Fraction(that)
 ```
