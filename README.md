@@ -48,8 +48,14 @@ const fraction = new Fraction()  // -> 0/1
 // single arg constructor
 const fraction = new Fraction(2)  // -> 2/1
 
+// single arg constructor (decimal)
+const fraction = new Fraction(0.2)  // -> 1/5
+
 // two args constructor
 const fraction = new Fraction(2, 5) // -> 2/5
+
+// two args constructor (decimal)
+const fraction = new Fraction(2, 0.5) // -> 4/1
 
 // two args constructor
 const fraction = new Fraction(3, 0) // -> throws error
