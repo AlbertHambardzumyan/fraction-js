@@ -29,6 +29,6 @@
     "url": "https://github.com/AlbertHambardzumyan/fraction-js"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "jest"
   }
 }
