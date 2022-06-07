@@ -1,346 +1,483 @@
-var chai = require('chai')
-var expect = chai.expect
+const Fraction = require('../lib/fraction')
 
-var Fraction = require('../lib/fraction')
+describe('Fraction', () => {
+  describe('constructor(...)', () => {
+    test('should create Fraction instance with default values.', () => {
+      const fraction = new Fraction()
+      const result = fraction.toString()
 
-describe('Fraction', function () {
-
-  describe('Fraction()', function () {
-    it('should create Fraction instance with default values.', function () {
-      expect((new Fraction()).toString()).to.be.equal('0/1')
+      expect(result).toBe('0/1')
     })
 
-    it('should create Fraction instance given two numbers.', function () {
-      expect((new Fraction(1, 3)).toString()).to.be.equal('1/3')
+    test('should create Fraction instance given two numbers.', () => {
+      const fraction = new Fraction(1, 3)
+      const result = fraction.toString()
+
+      expect(result).toBe('1/3')
     })
 
-    it('should create Fraction instance given two numbers (negative).', function () {
-      expect((new Fraction(-1, 3)).toString()).to.be.equal('-1/3')
+    test('should create Fraction instance given two numbers (decimal).', () => {
+      const fraction = new Fraction(0.2, 0.4)
+      const result = fraction.toString()
+
+      expect(result).toBe('1/2')
     })
 
-    it('should create Fraction instance given two numbers (negative denominator).', function () {
-      expect((new Fraction(1, -3)).toString()).to.be.equal('-1/3')
+    test('should create Fraction instance given two numbers (negative).', () => {
+      const fraction = new Fraction(-1, 3)
+      const result = fraction.toString()
+
+      expect(result).toBe('-1/3')
     })
 
-    it('should create Fraction instance given two numbers (negative nominator & denominator).', function () {
-      expect((new Fraction(-1, -3)).toString()).to.be.equal('1/3')
+    test('should create Fraction instance given two numbers (negative denominator).', () => {
+      const fraction = new Fraction(1, -3)
+      const result = fraction.toString()
+
+      expect(result).toBe('-1/3')
     })
 
-    it('should create Fraction instance given two numbers & normalize.', function () {
-      expect((new Fraction(2, 6)).toString()).to.be.equal('1/3')
+    test('should create Fraction instance given two numbers (negative nominator & denominator).', () => {
+      const fraction = new Fraction(-1, -3)
+      const result = fraction.toString()
+
+      expect(result).toBe('1/3')
     })
 
-    it('should not create Fraction instance given two numbers (denominator is zero).', function () {
-      var badConstructor = function () {
-        return new Fraction(4, 0)
-      }
-      expect(badConstructor).to.throw(Error)
+    test('should create Fraction instance given two numbers & normalize.', () => {
+      const fraction = new Fraction(2, 6)
+      const result = fraction.toString()
+
+      expect(result).toBe('1/3')
     })
 
-    it('should create Fraction instance given single number.', function () {
-      expect((new Fraction(2)).toString()).to.be.equal('2/1')
+    test('should not create Fraction instance given two numbers (denominator is zero).', () => {
+      const result = () => new Fraction(4, 0)
+
+      expect(result).toThrow(Error)
     })
 
-    it('should create Fraction instance given another Fraction instance.', function () {
-      var fraction = new Fraction(2, 3)
-      expect((new Fraction(fraction)).toString()).to.be.equal('2/3')
-    })
-  })
+    test('should create Fraction instance given single number.', () => {
+      const fraction = new Fraction(2)
+      const result = fraction.toString()
 
-  describe('gcd()', function () {
-    it('should compute gcd of the Fraction instance.', function () {
-      var fraction = new Fraction(2, 7)
-      expect(fraction.gcd().toString()).to.be.equal('1')
+      expect(result).toBe('2/1')
     })
 
-    it('should compute gcd of the Fraction instance (negative).', function () {
-      var fraction = new Fraction(-2, 7)
-      expect(fraction.gcd().toString()).to.be.equal('1')
-    })
-  })
+    test('should create Fraction instance given single number (decimal).', () => {
+      const fraction = new Fraction(0.2)
+      const result = fraction.toString()
 
-  describe('add()', function () {
-    it('should add Fraction instance values.', function () {
-      var fraction1 = new Fraction(1, 5)
-      var fraction2 = new Fraction(2, 5)
-
-      expect(fraction1.add(fraction2).toString()).to.be.equal('3/5')
+      expect(result).toBe('1/5')
     })
 
-    it('should add Fraction instance values (first negative).', function () {
-      var fraction1 = new Fraction(-2, 5)
-      var fraction2 = new Fraction(1, 5)
+    test('should create Fraction instance given another Fraction instance.', () => {
+      const fraction = new Fraction(2, 3)
+      const result = fraction.toString()
 
-      expect(fraction1.add(fraction2).toString()).to.be.equal('-1/5')
-    })
-
-    it('should add Fraction instance values (second negative).', function () {
-      var fraction1 = new Fraction(2, 5)
-      var fraction2 = new Fraction(-1, 5)
-
-      expect(fraction1.add(fraction2).toString()).to.be.equal('1/5')
-    })
-
-    it('should add Fraction instance values (first negative & smaller).', function () {
-      var fraction1 = new Fraction(-1, 5)
-      var fraction2 = new Fraction(2, 5)
-
-      expect(fraction1.add(fraction2).toString()).to.be.equal('1/5')
-    })
-
-    it('should add Fraction instance values (second negative & bigger).', function () {
-      var fraction1 = new Fraction(1, 5)
-      var fraction2 = new Fraction(-2, 5)
-
-      expect(fraction1.add(fraction2).toString()).to.be.equal('-1/5')
-    })
-
-    it('should add Fraction instance values & normalize.', function () {
-      var fraction1 = new Fraction(1, 4)
-      var fraction2 = new Fraction(1, 4)
-
-      expect(fraction1.add(fraction2).toString()).to.be.equal('1/2')
-    })
-
-    it('should not pass validation and should throw error.', function () {
-      var fraction = new Fraction(3, 4)
-      var mock = {_numerator: 'mock-numerator'}
-
-      expect(fraction.equals.bind(mock)).to.throw(Error)
+      expect(result).toBe('2/3')
     })
   })
 
-  describe('subtract()', function () {
-    it('should add Fraction instance values.', function () {
-      var fraction1 = new Fraction(3, 5)
-      var fraction2 = new Fraction(2, 5)
+  describe('add(...)', () => {
+    test('should add Fraction instance values.', () => {
+      const fraction = new Fraction(1, 5)
+      const that = new Fraction(2, 5)
 
-      expect(fraction1.subtract(fraction2).toString()).to.be.equal('1/5')
+      fraction.add(that)
+      const result = fraction.toString()
+
+      expect(result).toBe('3/5')
     })
 
-    it('should add Fraction instance values (first negative).', function () {
-      var fraction1 = new Fraction(-3, 5)
-      var fraction2 = new Fraction(2, 5)
+    test('should add Fraction instance values (first negative).', () => {
+      const fraction = new Fraction(-2, 5)
+      const that = new Fraction(1, 5)
 
-      expect(fraction1.subtract(fraction2).toString()).to.be.equal('-1/1')
+      fraction.add(that)
+      const result = fraction.toString()
+
+      expect(result).toBe('-1/5')
     })
 
-    it('should add Fraction instance values (second negative).', function () {
-      var fraction1 = new Fraction(3, 5)
-      var fraction2 = new Fraction(-2, 5)
+    test('should add Fraction instance values (second negative).', () => {
+      const fraction = new Fraction(2, 5)
+      const that = new Fraction(-1, 5)
 
-      expect(fraction1.subtract(fraction2).toString()).to.be.equal('1/1')
+      fraction.add(that)
+      const result = fraction.toString()
+
+      expect(result).toBe('1/5')
     })
 
-    it('should add Fraction instance values (first negative & smaller).', function () {
-      var fraction1 = new Fraction(-2, 5)
-      var fraction2 = new Fraction(3, 5)
+    test('should add Fraction instance values (first negative & smaller).', () => {
+      const fraction = new Fraction(-1, 5)
+      const that = new Fraction(2, 5)
 
-      expect(fraction1.subtract(fraction2).toString()).to.be.equal('-1/1')
+      fraction.add(that)
+      const result = fraction.toString()
+
+      expect(result).toBe('1/5')
     })
 
-    it('should add Fraction instance values (second negative & bigger).', function () {
-      var fraction1 = new Fraction(2, 5)
-      var fraction2 = new Fraction(-3, 5)
+    test('should add Fraction instance values (second negative & bigger).', () => {
+      const fraction = new Fraction(1, 5)
+      const that = new Fraction(-2, 5)
 
-      expect(fraction1.subtract(fraction2).toString()).to.be.equal('1/1')
+      fraction.add(that)
+      const result = fraction.toString()
+
+      expect(result).toBe('-1/5')
     })
 
-    it('should subtract Fraction instance values & normalize.', function () {
-      var fraction1 = new Fraction(3, 4)
-      var fraction2 = new Fraction(1, 4)
+    test('should add Fraction instance values & normalize.', () => {
+      const fraction = new Fraction(1, 4)
+      const that = new Fraction(1, 4)
 
-      expect(fraction1.subtract(fraction2).toString()).to.be.equal('1/2')
+      fraction.add(that)
+      const result = fraction.toString()
+
+      expect(result).toBe('1/2')
     })
 
-    it('should not pass validation and should throw error.', function () {
-      var fraction = new Fraction(3, 4)
-      var mock = {_numerator: 'mock-numerator'}
+    test('should not pass validation and should throw error.', () => {
+      const fraction = new Fraction(3, 4)
+      const object = {_numerator: 'mock-numerator'}
 
-      expect(fraction.equals.bind(mock)).to.throw(Error)
-    })
-  })
+      const result = () => fraction.add(object)
 
-  describe('multiply()', function () {
-    it('should multiply with given Fraction instance values.', function () {
-      var fraction1 = new Fraction(3, 4)
-      var fraction2 = new Fraction(1, 7)
-
-      expect(fraction1.multiply(fraction2).toString()).to.be.equal('3/28')
-    })
-
-    it('should multiply with given Fraction instance values (negative).', function () {
-      var fraction1 = new Fraction(-3, 4)
-      var fraction2 = new Fraction(1, 7)
-
-      expect(fraction1.multiply(fraction2).toString()).to.be.equal('-3/28')
-    })
-
-    it('should multiply with given Fraction instance values (both negative).', function () {
-      var fraction1 = new Fraction(-3, 4)
-      var fraction2 = new Fraction(-1, 7)
-
-      expect(fraction1.multiply(fraction2).toString()).to.be.equal('3/28')
-    })
-
-    it('should multiply with given Fraction instance values & normalize.', function () {
-      var fraction1 = new Fraction(3, 5)
-      var fraction2 = new Fraction(1, 6)
-
-      expect(fraction1.multiply(fraction2).toString()).to.be.equal('1/10')
-    })
-
-    it('should not pass validation and should throw error.', function () {
-      var fraction = new Fraction(3, 4)
-      var mock = {_numerator: 'mock-numerator'}
-
-      expect(fraction.equals.bind(mock)).to.throw(Error)
+      expect(result).toThrow(Error)
     })
   })
 
-  describe('inverse()', function () {
-    it('should inverse & return new Fraction instance.', function () {
-      var fraction = new Fraction(3, 4)
+  describe('subtract(...)', () => {
+    test('should add Fraction instance values.', () => {
+      const fraction = new Fraction(3, 5)
+      const that = new Fraction(2, 5)
 
-      expect(fraction.inverse().toString()).to.be.equal('4/3')
-      expect(fraction.toString()).to.be.equal('3/4')
+      fraction.subtract(that)
+      const result = fraction.toString()
+
+      expect(result).toBe('1/5')
     })
 
-    it('should inverse & return new Fraction instance (negative).', function () {
-      var fraction = new Fraction(-3, 4)
+    test('should add Fraction instance values (first negative).', () => {
+      const fraction = new Fraction(-3, 5)
+      const that = new Fraction(2, 5)
 
-      expect(fraction.inverse().toString()).to.be.equal('-4/3')
-      expect(fraction.toString()).to.be.equal('-3/4')
+      fraction.subtract(that)
+      const result = fraction.toString()
+
+      expect(result).toBe('-1/1')
+    })
+
+    test('should add Fraction instance values (second negative).', () => {
+      const fraction = new Fraction(3, 5)
+      const that = new Fraction(-2, 5)
+
+      fraction.subtract(that)
+      const result = fraction.toString()
+
+      expect(result).toBe('1/1')
+    })
+
+    test('should add Fraction instance values (first negative & smaller).', () => {
+      const fraction = new Fraction(-2, 5)
+      const that = new Fraction(3, 5)
+
+      fraction.subtract(that)
+      const result = fraction.toString()
+
+      expect(result).toBe('-1/1')
+    })
+
+    test('should add Fraction instance values (second negative & bigger).', () => {
+      const fraction = new Fraction(2, 5)
+      const that = new Fraction(-3, 5)
+
+      fraction.subtract(that)
+      const result = fraction.toString()
+
+      expect(result).toBe('1/1')
+    })
+
+    test('should subtract Fraction instance values & normalize.', () => {
+      const fraction = new Fraction(3, 4)
+      const that = new Fraction(1, 4)
+
+      fraction.subtract(that)
+      const result = fraction.toString()
+
+      expect(result).toBe('1/2')
+    })
+
+    test('should not pass validation and should throw error.', () => {
+      const fraction = new Fraction(3, 4)
+      const object = {_numerator: 'mock-numerator'}
+
+      const result = () => fraction.subtract(object)
+
+      expect(result).toThrow(Error)
     })
   })
 
-  describe('divide()', function () {
-    it('should divide with given Fraction instance values.', function () {
-      var fraction1 = new Fraction(3, 4)
-      var fraction2 = new Fraction(2, 7)
+  describe('multiply(...)', () => {
+    test('should multiply with given Fraction instance values.', () => {
+      const fraction = new Fraction(3, 4)
+      const that = new Fraction(1, 7)
 
-      expect(fraction1.divide(fraction2).toString()).to.be.equal('21/8')
+      fraction.multiply(that)
+      const result = fraction.toString()
+
+      expect(result).toBe('3/28')
     })
 
-    it('should divide with given Fraction instance values (negative).', function () {
-      var fraction1 = new Fraction(-3, 4)
-      var fraction2 = new Fraction(2, 7)
+    test('should multiply with given Fraction instance values (negative).', () => {
+      const fraction = new Fraction(-3, 4)
+      const that = new Fraction(1, 7)
 
-      expect(fraction1.divide(fraction2).toString()).to.be.equal('-21/8')
+      fraction.multiply(that)
+      const result = fraction.toString()
+
+      expect(result).toBe('-3/28')
     })
 
-    it('should divide with given Fraction instance values (both negative).', function () {
-      var fraction1 = new Fraction(-3, 4)
-      var fraction2 = new Fraction(-2, 7)
+    test('should multiply with given Fraction instance values (both negative).', () => {
+      const fraction = new Fraction(-3, 4)
+      const that = new Fraction(-1, 7)
 
-      expect(fraction1.divide(fraction2).toString()).to.be.equal('21/8')
+      fraction.multiply(that)
+      const result = fraction.toString()
+
+      expect(result).toBe('3/28')
     })
 
-    it('should divide with given Fraction instance values & normalize.', function () {
-      var fraction1 = new Fraction(4, 5)
-      var fraction2 = new Fraction(2, 4)
+    test('should multiply with given Fraction instance values & normalize.', () => {
+      const fraction = new Fraction(3, 5)
+      const that = new Fraction(1, 6)
 
-      expect(fraction1.divide(fraction2).toString()).to.be.equal('8/5')
+      fraction.multiply(that)
+      const result = fraction.toString()
+
+      expect(result).toBe('1/10')
     })
 
-    it('should not pass validation and should throw error.', function () {
-      var fraction = new Fraction(3, 4)
-      var mock = {_numerator: 'mock-numerator'}
+    test('should not pass validation and should throw error.', () => {
+      const fraction = new Fraction(3, 4)
+      const object = {_numerator: 'mock-numerator'}
 
-      expect(fraction.equals.bind(mock)).to.throw(Error)
+      const result = () => fraction.subtract(object)
+
+      expect(result).toThrow(Error)
     })
   })
 
-  describe('clone()', function () {
-    it('should make a clone of Fraction instance.', function () {
-      var fraction = new Fraction(1, 4)
+  describe('divide(...)', () => {
+    test('should divide with given Fraction instance values.', () => {
+      const fraction = new Fraction(3, 4)
+      const that = new Fraction(2, 7)
 
-      var clone = fraction.clone()
+      fraction.divide(that)
+      const result = fraction.toString()
+
+      expect(result).toBe('21/8')
+    })
+
+    test('should divide with given Fraction instance values (negative).', () => {
+      const fraction = new Fraction(-3, 4)
+      const that = new Fraction(2, 7)
+
+      fraction.divide(that)
+      const result = fraction.toString()
+
+      expect(result).toBe('-21/8')
+    })
+
+    test('should divide with given Fraction instance values (both negative).', () => {
+      const fraction = new Fraction(-3, 4)
+      const that = new Fraction(-2, 7)
+
+      fraction.divide(that)
+      const result = fraction.toString()
+
+      expect(result).toBe('21/8')
+    })
+
+    test('should divide with given Fraction instance values & normalize.', () => {
+      const fraction = new Fraction(4, 5)
+      const that = new Fraction(2, 4)
+
+      fraction.divide(that)
+      const result = fraction.toString()
+
+      expect(result).toBe('8/5')
+    })
+
+    test('should not pass validation and should throw error.', () => {
+      const fraction = new Fraction(3, 4)
+      const object = {_numerator: 'mock-numerator'}
+
+      const result = () => fraction.subtract(object)
+
+      expect(result).toThrow(Error)
+    })
+  })
+
+  describe('inverse()', () => {
+    test('should inverse & return new Fraction instance.', () => {
+      const fraction = new Fraction(3, 4)
+      const inverse = fraction.inverse().toString()
+
+      expect(inverse.toString()).toBe('4/3')
+      expect(fraction.toString()).toBe('3/4')
+    })
+
+    test('should inverse & return new Fraction instance (negative).', () => {
+      const fraction = new Fraction(-3, 4)
+      const inverse = fraction.inverse().toString()
+
+      expect(inverse.toString()).toBe('-4/3')
+      expect(fraction.toString()).toBe('-3/4')
+    })
+  })
+
+  describe('clone()', () => {
+    test('should make a clone of Fraction instance.', () => {
+      const fraction = new Fraction(1, 4)
+      const clone = fraction.clone()
+
       fraction.add(new Fraction(1, 3))
 
-      expect(clone.toString()).to.be.equal('1/4')
+      expect(clone.toString()).toBe('1/4')
     })
   })
 
-  describe('copy()', function () {
-    it('should make a copy of given Fraction instance.', function () {
-      var fraction1 = new Fraction(1, 4)
-      var fraction2 = new Fraction(3, 4)
+  describe('copy()', () => {
+    test('should make a copy of given Fraction instance.', () => {
+      const fraction = new Fraction(1, 4)
+      const that = new Fraction(3, 4)
 
-      fraction1.copy(fraction2)
-      expect(fraction1.toString()).to.be.equal('3/4')
+      fraction.copy(that)
+
+      expect(fraction.toString()).toBe('3/4')
     })
 
-    it('should not pass validation and should throw error.', function () {
-      var fraction = new Fraction(3, 4)
-      var mock = {_numerator: 'mock-numerator'}
+    test('should not pass validation and should throw error.', () => {
+      const fraction = new Fraction(3, 4)
+      const object = {_numerator: 'mock-numerator'}
 
-      expect(fraction.equals.bind(mock)).to.throw(Error)
-    })
-  })
+      const result = () => fraction.subtract(object)
 
-  describe('equals()', function () {
-    it('should checks whether the given Fraction is equal or not - should be equal.', function () {
-      var fraction1 = new Fraction(1, 4)
-      var fraction2 = new Fraction(1, 4)
-
-      expect(fraction1.equals(fraction2)).to.be.equal(true)
-    })
-
-    it('should checks whether the given Fraction is equal or not - should not be equal.', function () {
-      var fraction1 = new Fraction(3, 4)
-      var fraction2 = new Fraction(2, 3)
-
-      expect(fraction1.equals(fraction2)).to.be.equal(false)
-    })
-
-    it('should not pass validation and should throw error.', function () {
-      var fraction = new Fraction(3, 4)
-      var mock = {_numerator: 'mock-numerator'}
-
-      expect(fraction.equals.bind(mock)).to.throw(Error)
+      expect(result).toThrow(Error)
     })
   })
 
-  describe('value()', function () {
-    it('should get the value of the Fraction - 1 / 3.', function () {
-      var fraction = new Fraction(1, 3)
+  describe('equals()', () => {
+    test('should checks whether the given Fraction is equal or not - should be equal.', () => {
+      const fraction = new Fraction(1, 4)
+      const that = new Fraction(1, 4)
 
-      expect(fraction.value()).to.be.equal(1 / 3)
+      const result = fraction.equals(that)
+
+      expect(result).toBe(true)
     })
 
-    it('should get the value of the Fraction - 6 / 7.', function () {
-      var fraction = new Fraction(6, 7)
+    test('should checks whether the given Fraction is equal or not - should not be equal.', () => {
+      const fraction = new Fraction(3, 4)
+      const that = new Fraction(2, 3)
 
-      expect(fraction.value()).to.be.equal(6 / 7)
+      const result = fraction.equals(that)
+
+      expect(result).toBe(false)
+    })
+
+    test('should not pass validation and should throw error.', () => {
+      const fraction = new Fraction(3, 4)
+      const object = {_numerator: 'mock-numerator'}
+
+      const result = () => fraction.subtract(object)
+
+      expect(result).toThrow(Error)
     })
   })
 
-  describe('Fraction.isFraction()', function () {
-    it('should be instance of Fraction.', function () {
-      var fraction = new Fraction(1, 3)
+  describe('value()', () => {
+    test('should get the value of the Fraction - 1 / 3.', () => {
+      const fraction = new Fraction(1, 3)
 
-      expect(Fraction.isFraction(fraction)).to.be.equal(true)
+      expect(fraction.value()).toBe(1 / 3)
     })
 
-    it('should not be instance of Fraction.', function () {
-      var mock = {_numerator: 'mock-numerator'}
+    test('should get the value of the Fraction - 6 / 7.', () => {
+      const fraction = new Fraction(6, 7)
 
-      expect(Fraction.isFraction(mock)).to.be.equal(false)
+      expect(fraction.value()).toBe(6 / 7)
     })
   })
 
-  describe('Fraction._validateFractionArg()', function () {
-    it('should be instance of Fraction.', function () {
-      var fraction = new Fraction(1, 3)
+  describe('toString()', () => {
+    test('should get the string of the Fraction - 1 / 3.', () => {
+      const fraction = new Fraction(1, 3)
 
-      expect(Fraction._validateFractionArg(fraction)).to.be.equal(undefined)
+      expect(fraction.toString()).toBe('1/3')
+    })
+  })
+
+  describe('gcd()', () => {
+    test('should compute gcd of the Fraction instance.', () => {
+      const fraction = new Fraction(2, 7)
+      const result = fraction.gcd().toString()
+
+      expect(result).toBe('1')
     })
 
-    it('should not be instance of Fraction.', function () {
-      var mock = {_numerator: 'mock-numerator'}
+    test('should compute gcd of the Fraction instance (negative).', () => {
+      const fraction = new Fraction(-2, 7)
+      const result = fraction.gcd().toString()
 
-      expect(Fraction._validateFractionArg.bind(mock)).to.throw(Error)
+      expect(result).toBe('1')
+    })
+  })
+
+  describe('Fraction.isFraction()', () => {
+    test('should be instance of Fraction.', () => {
+      const fraction = new Fraction(1, 3)
+      const result = Fraction.isFraction(fraction)
+
+      expect(Fraction.isFraction(fraction)).toBe(true)
+    })
+
+    test('should not be instance of Fraction.', () => {
+      const object = {_numerator: 'mock-numerator'}
+      const result = Fraction.isFraction(object)
+
+      expect(result).toBe(false)
+    })
+  })
+
+  describe('Fraction._validateFractionArg()', () => {
+    test('should be instance of Fraction.', () => {
+      const fraction = new Fraction(1, 3)
+      const result = Fraction._validateFractionArg(fraction)
+
+      expect(result).toBe(undefined)
+    })
+
+    test('should not be instance of Fraction.', function () {
+      const object = {_numerator: 'mock-numerator'}
+      const result = () => Fraction._validateFractionArg(object)
+
+      expect(result).toThrow(Error)
+    })
+  })
+
+  describe('Fraction._numberToFraction()', () => {
+    test('should be instance of Fraction.', () => {
+      const result = Fraction._numberToFraction(12.2)
+
+      expect(result).toBeInstanceOf(Fraction)
+      expect(result._numerator).toBe(61)
+      expect(result._denominator).toBe(5)
     })
   })
 })
