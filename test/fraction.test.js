@@ -9,11 +9,18 @@ describe('Fraction', () => {
       expect(result).toBe('0/1')
     })
 
-    it('should create Fraction instance given two numbers.', () => {
+    test('should create Fraction instance given two numbers.', () => {
       const fraction = new Fraction(1, 3)
       const result = fraction.toString()
 
       expect(result).toBe('1/3')
+    })
+
+    test('should create Fraction instance given two numbers (decimal).', () => {
+      const fraction = new Fraction(0.2, 0.4)
+      const result = fraction.toString()
+
+      expect(result).toBe('1/2')
     })
 
     test('should create Fraction instance given two numbers (negative).', () => {
@@ -55,6 +62,13 @@ describe('Fraction', () => {
       const result = fraction.toString()
 
       expect(result).toBe('2/1')
+    })
+
+    test('should create Fraction instance given single number (decimal).', () => {
+      const fraction = new Fraction(0.2)
+      const result = fraction.toString()
+
+      expect(result).toBe('1/5')
     })
 
     test('should create Fraction instance given another Fraction instance.', () => {
@@ -454,6 +468,16 @@ describe('Fraction', () => {
       const result = () => Fraction._validateFractionArg(object)
 
       expect(result).toThrow(Error)
+    })
+  })
+
+  describe('Fraction._numberToFraction()', () => {
+    test('should be instance of Fraction.', () => {
+      const result = Fraction._numberToFraction(12.2)
+
+      expect(result).toBeInstanceOf(Fraction)
+      expect(result._numerator).toBe(61)
+      expect(result._denominator).toBe(5)
     })
   })
 })
