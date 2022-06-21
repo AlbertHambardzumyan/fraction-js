@@ -16,6 +16,13 @@ describe('Fraction', () => {
       expect(result).toBe('1/3')
     })
 
+    test('should create Fraction instance given two numbers (special case).', () => {
+      const fraction = new Fraction(7324218750000001, 292968750000)
+      const result = fraction.toString()
+
+      expect(result).toBe('7324218750000001/292968750000')
+    })
+
     test('should create Fraction instance given two numbers (decimal).', () => {
       const fraction = new Fraction(0.2, 0.4)
       const result = fraction.toString()
