@@ -1,7 +1,7 @@
 {
   "name": "@mathematics/fraction",
   "description": "Fraction library written in JavaScript.",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.4",
   "author": "Albert Hambardzumyan <hambardzumyan.albert@gmail.com>",
   "bugs": {
     "url": "https://github.com/AlbertHambardzumyan/fraction-js/issues",
